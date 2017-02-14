@@ -90,7 +90,7 @@ window.addEventListener('load', function () {
             checkNew(ip3,ip2);
             str = JSON.stringify(ip2, null, 2);
             //document.getElementById('filecontent').innerText = str;
-            //startDownload(str.replace(/ /g,''),name + '.json');
+            startDownload(str.replace(/ /g,''),name + '.json');
         });
         reader.readAsText(file);
         upload.value = '';
