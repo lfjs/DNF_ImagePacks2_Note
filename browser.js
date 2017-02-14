@@ -109,7 +109,7 @@ var load = function(){
             console.log(lastDate.innerText ='最后发布于：'+ new Date(ip3.ImagePacks2[0][4]).toLocaleString());
         }
     };
-    xmlhttp.open("GET","ImagePacks2.json",true);            //which file
+    xmlhttp.open("GET","ImagePacks2.json?t=" + Math.random(),true);            //which file
     xmlhttp.send();
 
     body0.style.fontSize = '16px';

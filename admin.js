@@ -328,7 +328,7 @@ var load = function(){
             wtable(ip3.ImagePacks2,c);
         }
     };
-    xmlhttp.open("POST","ImagePacks2.json",true);            //which file
+    xmlhttp.open("GET","ImagePacks2.json?t=" + Math.random(),true);            //which file
     xmlhttp.send();
 
     body0.style.fontSize = '16px';
