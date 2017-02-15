@@ -97,6 +97,8 @@ table{text-align: center}
     display: none;
       background-color: rgba(0, 0, 0, 0.3);
       border-radius: 10px;
+}#filter:hover{
+                    outline: 10px solid #40b7ea;
 }#filter{
     /*background-color: #006666;*/
 }.tools>ul>li:hover {
