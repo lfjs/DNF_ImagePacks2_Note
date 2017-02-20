@@ -220,6 +220,8 @@ window.addEventListener('click',function(evt){
         wtable(ip3.ImagePacks2);
     }else if(evt.target.id == 'filter'){
         var ft = document.getElementById('filter');
+        var info = document.getElementById('info');
+        info.style.display = 'none';
         list.style.left=ft.offsetLeft+10+'px';
         list.style.top=evt.clientY+'px';
         //list.childNodes[1].style.width = ft.offsetWidth+'px';

@@ -3,6 +3,13 @@ html,body{height: 100%}
 table{text-align: center}
 .tools>ul {
     position: absolute;
+}.info{
+     position: fixed;
+     top: 200px;
+     left: 100px;
+     color: #40B7EA;
+     text-shadow: 1px 1px 0 #000;
+     font-size: 100px;
 }strong{
     color: red;
      text-shadow: 1px 1px 0px #900000;
