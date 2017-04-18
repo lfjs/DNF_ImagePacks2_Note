@@ -52,12 +52,26 @@
                 <li>茶</li>
                 <li>牛奶</li>
             </ul>
-            <div class="info" id="info">点击蓝色倒三角以筛选=）</div>
+            <!--<div class="info" id="info">点击蓝色倒三角以筛选=）</div>-->
         </div>
     </div>
 
-<div class="wtable" id="wtable">
+<div ng-app="ngApp" ng-controller="ngCtrl" class="wtable" id="wtable">
+    <table id="active_table">
+        <thead>
+        <tr>
+            <th ng-repeat="x in titles">{{x}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="x in names">
+            <td>{{$index+1}}</td>
+            <td ng-repeat="y in x track by $index">{{y}}</td>
+        </tr>
+        </tbody>
+    </table>
 </div>
+    <script src="angular.min.1.6.3.js"></script>
+    <script src="ng.js"></script>
 </body>
-<script src="browser.js"></script>
 </html>
