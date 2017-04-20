@@ -43,14 +43,12 @@
     </div>
     <div class="nav_left">
         <div class="tools">
-            <div class="date" id="date">最后发布于：<span ng-bind="titles[4]|date:'yyyy-MM-dd HH:mm:ss'"></span></div>
-            <button class="reload" id="reload">重新加载列表</button>
+            <div class="date" id="date">最后发布于：<input type="text" ng-model="titles[4]"/><span ng-bind="titles[4]|date:'yyyy-MM-dd HH:mm:ss'"></span></div>
+            <button class="reload" id="reload" ng-click="reload()">重新加载列表</button>
             <button class="reload" id="show">展示所有信息</button>
             <a href="https://lfjs.github.io/DNF_ImagePacks2_Note/indexAdmin.html"><button class="goAdmin" id="">去管理员页面</button></a>
-            <ul id="filter_list">
-                <li>咖啡</li>
-                <li>茶</li>
-                <li>牛奶</li>
+            <ul id="filter_list" style="display: block">
+                <li ng-repeat="x in flt track by $index">{{x}}</li>
             </ul>
             <!--<div class="info" id="info">点击蓝色倒三角以筛选=）</div>-->
         </div>
@@ -60,7 +58,10 @@
         <table id="active_table">
             <thead>
             <tr>
-                <th ng-repeat="x in titles">{{x}}</th>
+                <th ng-repeat="x in titles" id="{{x=='职业/类别'?'filter':''}}">
+                    {{x}}
+                    <div ng-if="x=='职业/类别'" class="downA"></div>
+                </th>
             </tr>
             </thead>
             <tbody>
