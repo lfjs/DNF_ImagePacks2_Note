@@ -20,12 +20,14 @@ app.controller('ngCtrl', function($scope, $http) {
     };
     $scope.reload();
 
+    $scope.fltKey ='职业/类别';         //筛选位置
+
     $scope.fltList = function(idx,Arr){
         $scope.flt = [];
         var num = 0;
         var temp = {};
         angular.forEach(idx,function(x,i){  //获取职业分类的列数
-            if(x=='职业/类别') num = --i
+            if(x==$scope.fltKey) num = --i
         });
         angular.forEach(Arr,function(x){    //职业去重后压入筛选列表
             if(!temp[x[num]]){
@@ -33,6 +35,19 @@ app.controller('ngCtrl', function($scope, $http) {
                 temp[x[num]] = 1
             }
         });
+    };
+
+    $scope.fltStatus = true;
+    $scope.fltToggle = function(text,$event){
+        if(text == $scope.fltKey){
+            $scope.fltStatus = !$scope.fltStatus;
+        }
+    };
+
+    $scope.fltHide = false;
+    $scope.fltItem = function(item){
+        console.log(item+' '+$scope.fltHide);
+        $scope.titles[4]=item;
     };
 
 });
