@@ -8,12 +8,15 @@ app.controller('ngCtrl', function($scope, $http) {
     $scope.reload = function(){
         $http({
             method: 'GET',
-            url: 'test.json'
+            //url: 'test.json'
+            url: 'ImagePacks2.json'
         }).then(function successCallback(response) {
             $scope.titles = response.data.ImagePacks2[0];
             $scope.names = response.data.ImagePacks2;
             $scope.names.splice(0,1);
             $scope.fltList($scope.titles,$scope.names);
+            $scope.fltShowKey = '';
+            $scope.fltShowInput = '';
         }, function errorCallback(response) {
             alert('error when loading!');// 请求失败执行代码
         });
@@ -37,17 +40,22 @@ app.controller('ngCtrl', function($scope, $http) {
         });
     };
 
-    $scope.fltStatus = true;
+    $scope.fltStatus = true;           //筛选菜单初始状态
     $scope.fltToggle = function(text,$event){
         if(text == $scope.fltKey){
             $scope.fltStatus = !$scope.fltStatus;
         }
     };
 
-    $scope.fltHide = false;
+    $scope.fltShowKey = '';
+    $scope.fltShowInput = '';
     $scope.fltItem = function(item){
-        console.log(item+' '+$scope.fltHide);
-        $scope.titles[4]=item;
+        if(!item ){
+            $scope.fltShowKey = '';
+            $scope.fltShowInput = '';
+        }else $scope.fltShowKey=item;
+        $scope.fltStatus = !$scope.fltStatus;
+
     };
 
 });
