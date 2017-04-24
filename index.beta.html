@@ -43,12 +43,15 @@
     </div>
     <div class="nav_left">
         <div class="tools">
-            <div class="date" id="date">最后发布于：<input type="hidden" ng-model="titles[4]"/><span ng-bind="titles[4]|date:'yyyy-MM-dd HH:mm:ss'"></span></div>
+            <div class="date" id="date">最后发布于：
+                <input type="text" ng-model="titles[4]"/>
+                <span ng-bind="titles[4]|date:'yyyy-MM-dd HH:mm:ss'"></span>
+            </div>
             <button class="reload" id="reload" ng-click="reload()">重新加载列表</button>
             <button class="reload" id="show">展示所有信息</button>
             <a href="https://lfjs.github.io/DNF_ImagePacks2_Note/indexAdmin.html"><button class="goAdmin" id="">去管理员页面</button></a>
             <ul id="filter_list" ng-hide="fltStatus" style="display: block">
-                <li ng-click="fltItem(x)">显示全部</li><li><input type="text" ng-model="fltShowInput" placeholder="{{fltShowKey}}"/></li><li ng-repeat="x in flt track by $index" ng-click="fltItem(x)">{{x}}</li>
+                <li ng-click="fltAction(x)">显示全部</li><li ng-click="fltAction(x)" ng-repeat="x in flt track by $index">{{x}}</li>
             </ul>
             <!--<div class="info" id="info">点击蓝色倒三角以筛选=）</div>-->
         </div>
@@ -58,14 +61,14 @@
         <table id="active_table">
             <thead>
             <tr>
-                <th ng-repeat="x in titles" ng-click="fltToggle(x,$event)" id="{{x=='职业/类别'?'filter':''}}">
+                <th ng-repeat="x in titles" ng-click="fltToggle(x)" id="{{x=='职业/类别'?'filter':''}}">
                     {{x}}
                     <div ng-if="x=='职业/类别'" class="downA"></div>
                 </th>
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="x in names|filter:fltShowKey|filter:fltShowInput">
+            <tr ng-repeat="x in names">
                 <td>{{$index+1}}</td>
                 <td ng-repeat="y in x track by $index">{{y}}</td>
             </tr>
