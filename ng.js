@@ -4,19 +4,47 @@
 
 var app = angular.module('ngApp', []);
 
+
+app.directive('resize', function ($window) {        //响应窗口变化
+    return function ($scope, element) {
+        var w = angular.element($window);
+        var toolsA = document.getElementsByClassName('nav_top');
+        var toolsB = document.getElementsByClassName('nav_left');
+        var innerTable = document.getElementById('active_table');
+        var outerTable = document.getElementById('wtable');
+        console.log($scope);
+        $scope.getWindowDimensions = function () {
+            return {
+                'h1': w[0].innerHeight,
+                'toolsA': toolsA[0].offsetHeight,
+                'innerWidth': innerTable.offsetWidth,
+                'outerWidth': outerTable.offsetWidth,
+                'toolsB': toolsB[0].offsetHeight
+            };
+        };
+        $scope.$watch($scope.getWindowDimensions, function (newValue, oldValue) {
+            $scope.wTableStyle ={
+                "height" : newValue.h1 - newValue.toolsA - newValue.toolsB + 'px'
+            };
+            $scope.hideWeak(newValue.innerWidth - newValue.outerWidth + 15);
+        }, true);
+        w.bind('resize', function () {
+            $scope.$apply();
+        });
+    }
+});
+
 app.controller('ngCtrl', function($scope, $http) {
     $scope.reload = function(){
         $http({
             method: 'GET',
-            //url: 'test.json'
-            url: 'ImagePacks2.json'             //加载位置
+            url: 'test.json'
+            //url: 'ImagePacks2.json'                                         //加载位置
         }).then(function successCallback(response) {
             $scope.titles = response.data.ImagePacks2[0];
             $scope.names = response.data.ImagePacks2;
             $scope.names.splice(0,1);
             $scope.fltList($scope.titles,$scope.names);
-            $scope.fltShowKey = '';
-            $scope.fltShowInput = '';
         }, function errorCallback(response) {
             alert('error when loading!');// 请求失败执行代码
         });
@@ -41,14 +69,14 @@ app.controller('ngCtrl', function($scope, $http) {
         });
     };
 
-    $scope.fltStatus = !true;           //筛选菜单初始状态
+    $scope.fltStatus = true;           //筛选菜单初始状态
     $scope.fltToggle = function(text){
         if(text == $scope.fltKey){
             $scope.fltStatus = !$scope.fltStatus;
         }
     };
 
-    $scope.fltAction = function(targ){
+    $scope.fltAction = function(targ){      //筛选的展示与隐藏
         $scope.ipTable = document.getElementById('active_table').tBodies[0].rows;
 
         angular.forEach($scope.ipTable,function(x){
@@ -62,8 +90,23 @@ app.controller('ngCtrl', function($scope, $http) {
                 }
             }
         });
-        //console.log([$scope.aaa = document.getElementById('active_table').tBodies[0].rows[0].cells[$scope.fltNum+1]]);
+        $scope.fltStatus = !$scope.fltStatus;
+    };
 
-    }
+    $scope.hideWeak = function(space) {
+        if(space < 0){
+            console.log('white space!')
+        }else{
+            var ipTable = document.getElementById('active_table').tBodies[0].rows;
+            angular.forEach(ipTable,function(x){
+                x.cells[4].className += ' ng-hide';
 
-});
+            });
+
+
+        }
+    };
+
+
+
+    });

@@ -12,7 +12,7 @@
     <link rel="mask-icon" href="https://assets-cdn.github.com/pinned-octocat.svg" color="#000000">
     <link rel="stylesheet" href="css.css"/>
 </head>
-<body ng-app="ngApp" ng-controller="ngCtrl">
+<body ng-app="ngApp" ng-controller="ngCtrl" style="overflow: auto">
     <div class="nav_top">
         <img src="logo.png" alt="DNF ImagePacks2 Note"/>
     </div>
@@ -57,7 +57,7 @@
         </div>
     </div>
 
-    <div class="wtable" id="wtable">
+    <div class="wtable" id="wtable" ng-style="wTableStyle" resize>
         <table id="active_table">
             <thead>
             <tr>
