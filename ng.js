@@ -12,7 +12,6 @@ app.directive('resize', function ($window) {        //响应窗口变化
         var toolsB = document.getElementsByClassName('nav_left');
         var innerTable = document.getElementById('active_table');
         var outerTable = document.getElementById('wtable');
-        console.log($scope);
         $scope.getWindowDimensions = function () {
             return {
                 'h1': w[0].innerHeight,
@@ -26,7 +25,7 @@ app.directive('resize', function ($window) {        //响应窗口变化
             $scope.wTableStyle ={
                 "height" : newValue.h1 - newValue.toolsA - newValue.toolsB + 'px'
             };
-            $scope.hideWeak(newValue.innerWidth - newValue.outerWidth + 15);
+            $scope.hideWeak(newValue.outerWidth-newValue.innerWidth-15);
         }, true);
         w.bind('resize', function () {
             $scope.$apply();
@@ -93,17 +92,49 @@ app.controller('ngCtrl', function($scope, $http) {
         $scope.fltStatus = !$scope.fltStatus;
     };
 
+    $scope.hideWeakStack = {
+        '体积':1,
+        '日期':1,
+        '序号':1
+    };
+
     $scope.hideWeak = function(space) {
-        if(space < 0){
-            console.log('white space!')
+        if(space > 0){
+            console.log('white space!'+space)
         }else{
+            console.log('white space!'+space);
+            console.log('数据将被缩略！');
             var ipTable = document.getElementById('active_table').tBodies[0].rows;
+            var ipTableH = document.getElementById('active_table').tHead.rows;
+            //console.log(ipTableH[0].cells);
+
+            angular.forEach(ipTableH,function(x){
+                x.cells[4].className += ' ng-hide';
+            });
             angular.forEach(ipTable,function(x){
                 x.cells[4].className += ' ng-hide';
+            });
+            angular.forEach(ipTableH[0].cells,function(x){
+                console.log(x.innerText+' : ' +x.offsetWidth+'px');
+                if($scope.hideWeakStack[x.innerText]){
+                    $scope.hideWeakStack[x.innerText]=x.cellIndex;
 
+                }
             });
 
+            console.log($scope.hideWeakStack);
 
+            for(i in $scope.hideWeakStack){
+                console.log(i + ':'+ $scope.hideWeakStack[i]);
+
+
+                angular.forEach(ipTableH,function(x){
+                    x.cells[$scope.hideWeakStack[i]].className += ' ng-hide';
+                });
+                angular.forEach(ipTable,function(x){
+                    x.cells[$scope.hideWeakStack[i]].className += ' ng-hide';
+                });
+            }
         }
     };
 
