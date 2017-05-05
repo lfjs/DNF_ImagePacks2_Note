@@ -8,35 +8,6 @@ var list = document.getElementById('filter_list');
 var lastDate = document.getElementById('date');
 window.onresize = function(){wtable1.style.height = body0.offsetHeight-86+'px'};
 
-
-function getCookie(c_name){
-    if (document.cookie.length>0){
-        c_start=document.cookie.indexOf(c_name + "=");
-        if (c_start!=-1){
-            c_start=c_start + c_name.length+1;
-            c_end=document.cookie.indexOf(";",c_start);
-            if (c_end==-1) c_end=document.cookie.length;
-            return unescape(document.cookie.substring(c_start,c_end))
-        }
-    }
-    return ""
-}
-function setCookie(c_name,value,expiredays){
-    var exdate=new Date();
-    exdate.setDate(exdate.getDate()+expiredays);
-    document.cookie=c_name+ "=" +escape(value)+
-        ((expiredays==null) ? "" : "; expires="+exdate.toGMTString())
-}
-function checkCookie(){
-    username=getCookie('username');
-    if (username!=null && username!=""){
-        alert('Welcome again '+username+'!')
-    }else{
-        username=prompt('Please enter your name:',"");
-        if (username!=null && username!="") {setCookie('username',username,365)}
-    }
-}
-
 var flt =function(str){
     var cld = document.getElementById('active_table').childNodes[1].childNodes;
     for(x=0; x< cld.length;x++){
@@ -53,10 +24,10 @@ var flt =function(str){
 var showtable = function(json){
     for(x in json){
         if(typeof json[x] == 'object'){
-            console.log(x);
+            //console.log(x);
             showtable(json[x]);
         }else{
-            console.log(x + ': ' + json[x]);
+            //console.log(x + ': ' + json[x]);
         }
     }
 };
@@ -80,7 +51,7 @@ var check = function(){
     //console.log('表格大小'+t1.offsetWidth);
     //console.log('容器大小'+wtable1.offsetWidth);
     if(t1.offsetWidth > wtable1.offsetWidth){
-        console.log('表格大小>容器大小，表格将被缩略');
+        //console.log('表格大小>容器大小，表格将被缩略');
         if(t1.offsetWidth-wtable1.offsetWidth<=th[4].offsetWidth){
             return 1
         }else if(t1.offsetWidth-wtable1.offsetWidth>th[4].offsetWidth&&t1.offsetWidth-wtable1.offsetWidth<=th[4].offsetWidth+th[2].offsetWidth){
@@ -93,7 +64,7 @@ var check = function(){
     }
 };
 var load = function(){
-    console.log('load');
+    //console.log('load');
     var xmlhttp;
     if (window.XMLHttpRequest){         // code for IE7+, Firefox, Chrome, Opera, Safari
         xmlhttp=new XMLHttpRequest();
@@ -106,7 +77,8 @@ var load = function(){
             wtable(ip3.ImagePacks2);
             var c = check();
             wtable(ip3.ImagePacks2,c);
-            console.log(lastDate.innerText ='最后发布于：'+ new Date(ip3.ImagePacks2[0][4]).toLocaleString());
+            lastDate.innerText ='最后发布于：'+ new Date(ip3.ImagePacks2[0][4]).toLocaleString();
+            //console.log(lastDate.innerText);
         }
     };
     xmlhttp.open("GET","ImagePacks2.json?t=" + Math.random(),true);            //which file
@@ -206,10 +178,10 @@ var wtable = function(json,c){
     wtable1.innerHTML = str;
     wtable1.style.height = body0.offsetHeight-86+'px';
 };
-
-window.addEventListener('click',function(evt){
+window.addEventListener('click',function(e){
+    var evt = e || window.event;
     if(evt.target.id == 'reload'){
-        console.log('reload');
+        //console.log('reload');
         //var c = check();
         //wtable(ip3.ImagePacks2,c);        //测试自隐藏弱势信息
         load();                              //真重加载
@@ -218,7 +190,7 @@ window.addEventListener('click',function(evt){
         list.style.display = 'none';
     }else if(evt.target.id == 'show'){
         wtable(ip3.ImagePacks2);
-    }else if(evt.target.id == 'filter'){
+    }else if(evt.target.id.indexOf('filter')+1){
         var ft = document.getElementById('filter');
         var info = document.getElementById('info');
         info.style.display = 'none';
