@@ -1,5 +1,6 @@
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,form,input,p,th,td,s{margin:0;padding:0;font-family:"微软雅黑",Tahoma,sans-serif}
 html,body{height: 100%}
+*{line-height: normal}
 table{text-align: center}
 .tools>ul {
     position: absolute;
@@ -74,6 +75,7 @@ table{text-align: center}
      background: -o-linear-gradient(#7cb52e,#4e7e0e);
      background: -moz-linear-gradient(#7cb52e,#4e7e0e);
      background: linear-gradient(#7cb52e,#4e7e0e);
+    background-color: #62961c;
      border: 1px solid #538312;
      height: 30px;
      padding-left: 20px;
@@ -153,6 +155,7 @@ table{text-align: center}
     background: -o-linear-gradient(#f9a41a,#f47a20); /* Opera 11.1 - 12.0 */
     background: -moz-linear-gradient(#f9a41a,#f47a20); /* Firefox 3.6 - 15 */
     background: linear-gradient(#f9a41a,#f47a20); /* 标准的语法（必须放在最后） */
+    background-color: #f78d1e;
     border: 1px solid #da7c0c;
     height: 30px;
     padding-left: 20px;
@@ -169,6 +172,7 @@ table{text-align: center}
     background: -o-linear-gradient(white,white, #eee,white,white); /* Opera 11.1 - 12.0 */
     background: -moz-linear-gradient(white,white, #eee,white,white); /* Firefox 3.6 - 15 */
     background: linear-gradient(white,white, #eee,white,white); /* 标准的语法（必须放在最后） */
+    background-color: #f5f5f5;
     border-bottom: 1px solid #d3d3d3;
     height: 42px;
     position: relative;

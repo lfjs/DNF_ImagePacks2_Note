@@ -37,12 +37,12 @@ app.controller('ngCtrl', function($scope, $http) {
     $scope.reload = function(){
         $http({
             method: 'GET',
-            url: 'test.json'
-            //url: 'ImagePacks2.json'                                         //加载位置
+            //url: 'test.json'
+            url: 'ImagePacks2.json'                                         //加载位置
         }).then(function successCallback(response) {
+            $scope.titles = [];
             $scope.titles = response.data.ImagePacks2[0];
             $scope.names = response.data.ImagePacks2;
-            $scope.names.splice(0,1);
             $scope.fltList($scope.titles,$scope.names);
         }, function errorCallback(response) {
             alert('error when loading!');// 请求失败执行代码
@@ -60,6 +60,7 @@ app.controller('ngCtrl', function($scope, $http) {
         angular.forEach(idx,function(x,i){  //获取职业分类的列数
             if(x==$scope.fltKey) $scope.fltNum = --i
         });
+        temp[Arr[0][$scope.fltNum]] = 1;//排除标题
         angular.forEach(Arr,function(x){    //职业去重后压入筛选列表
             if(x[$scope.fltNum]!=='' && !temp[x[$scope.fltNum]]){
                 $scope.flt.push(x[$scope.fltNum]);
@@ -93,47 +94,53 @@ app.controller('ngCtrl', function($scope, $http) {
     };
 
     $scope.hideWeakStack = {
+        '时间戳':'sj',
         '体积':1,
         '日期':1,
         '序号':1
     };
 
     $scope.hideWeak = function(space) {
+        var ipTable = document.getElementById('active_table').tBodies[0].rows;
+        var ipTableH = document.getElementById('active_table').tHead.rows;
         if(space > 0){
-            console.log('white space!'+space)
+            console.log('white space!'+space);
         }else{
             console.log('white space!'+space);
             console.log('数据将被缩略！');
-            var ipTable = document.getElementById('active_table').tBodies[0].rows;
-            var ipTableH = document.getElementById('active_table').tHead.rows;
-            //console.log(ipTableH[0].cells);
-
-            angular.forEach(ipTableH,function(x){
-                x.cells[4].className += ' ng-hide';
-            });
-            angular.forEach(ipTable,function(x){
-                x.cells[4].className += ' ng-hide';
-            });
-            angular.forEach(ipTableH[0].cells,function(x){
-                console.log(x.innerText+' : ' +x.offsetWidth+'px');
+            //console.log($scope.hideWeakStack);
+            angular.forEach(ipTableH[0].cells,function(x){      //弱势列位置信息录入
                 if($scope.hideWeakStack[x.innerText]){
                     $scope.hideWeakStack[x.innerText]=x.cellIndex;
-
+                    //console.log($scope.hideWeakStack);
                 }
             });
+            for(i in $scope.hideWeakStack){             //依照信息隐藏弱势列
+                console.log(i + ': '+ $scope.hideWeakStack[i]);
+                if($scope.hideWeakStack[i] !=='_'){
+                    if($scope.hideWeakStack[i] == 'sj'){
+                        angular.forEach(ipTableH,function(x){
+                            x.cells[4].className += ' ng-hide';
+                        });
+                        angular.forEach(ipTable,function(x){
+                            x.cells[4].className += ' ng-hide';
+                        });
+                        $scope.hideWeakStack[i]='_';
+                        break;
+                    }else{
+                        angular.forEach(ipTableH,function(x){
+                            x.cells[$scope.hideWeakStack[i]].className += ' ng-hide';
+                        });
+                        angular.forEach(ipTable,function(x){
+                            x.cells[$scope.hideWeakStack[i]].className += ' ng-hide';
+                        });
+                        $scope.hideWeakStack[i]='_';
+                        console.log('hidingIndex: '+ i);
+                        break;
+                    }
 
-            console.log($scope.hideWeakStack);
+                }
 
-            for(i in $scope.hideWeakStack){
-                console.log(i + ':'+ $scope.hideWeakStack[i]);
-
-
-                angular.forEach(ipTableH,function(x){
-                    x.cells[$scope.hideWeakStack[i]].className += ' ng-hide';
-                });
-                angular.forEach(ipTable,function(x){
-                    x.cells[$scope.hideWeakStack[i]].className += ' ng-hide';
-                });
             }
         }
     };
