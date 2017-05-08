@@ -28,6 +28,7 @@ table{text-align: center}
      background: -o-linear-gradient(#7cb52e,#4e7e0e); /* Opera 11.1 - 12.0 */
      background: -moz-linear-gradient(#7cb52e,#4e7e0e); /* Firefox 3.6 - 15 */
      background: linear-gradient(#7cb52e,#4e7e0e); /* 标准的语法（必须放在最后） */
+    background-color: #62961c;
      border: 1px solid #538312;
 }.inputHelp>li{
      background-color: #eee;
@@ -125,13 +126,14 @@ table{text-align: center}
         background: -o-linear-gradient(#f7b74e,#f6ad35); /* Opera 11.1 - 12.0 */
         background: -moz-linear-gradient(#f7b74e,#f6ad35); /* Firefox 3.6 - 15 */
         background: linear-gradient(#f7b74e,#f6ad35); /* 标准的语法（必须放在最后） */
+    background-color: #f7b240;
     border: 1px solid #e78f08;
 }.tools>ul>li {
          background-color: #eee;
          color: #333;
          list-style-type: none;
          margin: 2px;
-         padding: 3px;
+         padding: 10px 5px;
          box-shadow: -1px 1px 0 #ccc;
          border-radius: 5px;
          border: 1px solid #ddd;

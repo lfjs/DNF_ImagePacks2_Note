@@ -178,32 +178,44 @@ var wtable = function(json,c){
     wtable1.innerHTML = str;
     wtable1.style.height = body0.offsetHeight-86+'px';
 };
-window.addEventListener('click',function(e){
-    var evt = e || window.event;
-    if(evt.target.id == 'reload'){
-        //console.log('reload');
-        //var c = check();
-        //wtable(ip3.ImagePacks2,c);        //测试自隐藏弱势信息
-        load();                              //真重加载
-    }else if(evt.target.tagName == 'LI'){
-        flt(evt.target.innerText);
-        list.style.display = 'none';
-    }else if(evt.target.id == 'show'){
-        wtable(ip3.ImagePacks2);
-    }else if(evt.target.id.indexOf('filter')+1){
-        var ft = document.getElementById('filter');
-        var info = document.getElementById('info');
-        info.style.display = 'none';
-        list.style.left=ft.offsetLeft+10+'px';
-        list.style.top=evt.clientY+'px';
-        //list.childNodes[1].style.width = ft.offsetWidth+'px';
-        if(!list.style.display||list.style.display=='none'){
-            list.style.display = 'block'
+window.onload = function(){
+    document.onclick = function(e){
+        var evt = e || window.event;
+        var target = evt.target || evt.srcElement;
+        //console.log(target.id);
+        if(target.id == 'reload'){
+            //console.log('reload');
+            //var c = check();
+            //wtable(ip3.ImagePacks2,c);        //测试自隐藏弱势信息
+            load();                              //真重加载
+        }else if(target.tagName == 'LI'){
+            flt(target.innerText);
+            list.style.display = 'none';
+        }else if(target.id == 'show'){
+            wtable(ip3.ImagePacks2);
+        }else if(target.id.indexOf('filter')+1){
+            var ft = document.getElementById('filter');
+            var info = document.getElementById('info');
+            info.style.display = 'none';
+            list.style.left=ft.offsetLeft+10+'px';
+            list.style.top=evt.clientY+'px';
+            //list.childNodes[1].style.width = ft.offsetWidth+'px';
+            if(!list.style.display||list.style.display=='none'){
+                list.style.display = 'block'
+            }else{
+                list.style.display = 'none'
+            }
         }else{
-            list.style.display = 'none'
+            list.style.display = 'none';
+            //console.log(evt)
         }
-    }else{
-        list.style.display = 'none';
-        //console.log(evt)
-    }
-});
+    };
+};
+
+function myBrowser(){
+    var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+    var isOpera = userAgent.indexOf("Opera") > -1;
+    if (userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && !isOpera) return "IE"; //判断是否IE浏览器
+}
+var mb = myBrowser();
+if ("IE" == mb) alert("本工具对IE8，及更早浏览器，存在或多或少的，不支持！");
