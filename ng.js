@@ -23,9 +23,9 @@ app.directive('resize', function ($window) {        //响应窗口变化
         };
         $scope.$watch($scope.getWindowDimensions, function (newValue, oldValue) {
             $scope.wTableStyle ={
-                "height" : newValue.h1 - newValue.toolsA - newValue.toolsB + 'px'
+                "height" : newValue.h1 - newValue.toolsA - newValue.toolsB + 'px'   //修正表格高度
             };
-            $scope.hideWeak(newValue.outerWidth-newValue.innerWidth-15);
+            $scope.hideWeak(newValue.outerWidth-newValue.innerWidth-15);     //根据宽度隐藏弱势列
         }, true);
         w.bind('resize', function () {
             $scope.$apply();
